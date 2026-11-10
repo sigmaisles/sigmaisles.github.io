@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sigma Isles — сервер Minecraft 1.20–26.3 без модов</title>
+<meta name="description" content="Sigma Isles: выживание без модов на Minecraft 1.20–26.3. Голосовой чат, профессии, боевой пропуск, приваты и летающий хаб с мини-играми. Можно без лицензии. IP: sigmaisles.sigma.band">
+<link rel="icon" href="icon.png">
+<meta property="og:title" content="Sigma Isles — сервер Minecraft">
+<meta property="og:description" content="Выживание без модов на 1.20–26.3, мини-игры, голосовой чат. IP: sigmaisles.sigma.band">
+<meta property="og:image" content="banner-1200x400.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Golos+Text:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one night-sky column; the banner is the hero, then join steps, features and rules as stacked "islands". Single dark look on purpose. */
+:root {
+  --sky: #0f0e2c;
+  --sky-2: #1c1747;
+  --panel: #241d55;
+  --line: #3b3178;
+  --text: #ece9ff;
+  --muted: #b4acdc;
+  --grass: #7ccf55;
+  --dirt: #8a5c3c;
+  --gold: #ffd75a;
+  --blossom: #ffa8d6;
+  --display: "Press Start 2P", "Courier New", monospace;
+  --body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", Consolas, monospace;
+  color-scheme: dark;
+}
+html { background: var(--sky); }
+body {
+  background: var(--sky);
+  background-image:
+    radial-gradient(1px 1px at 12% 8%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 78% 14%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 44% 31%, #cfd8ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 90% 46%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 62%, #ffefc0 50%, transparent 51%),
+    radial-gradient(1px 1px at 63% 77%, #fff 50%, transparent 51%),
+    linear-gradient(var(--sky), var(--sky-2));
+  background-attachment: fixed;
+  color: var(--text);
+  font: 400 1rem/1.6 var(--body);
+}
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 64px;
+  display: grid;
+  gap: 56px;
+}
+img { max-width: 100%; display: block; image-rendering: pixelated; }
+h2 {
+  font: 400 1.05rem/1.5 var(--display);
+  color: var(--gold);
+  margin: 0 0 20px;
+  text-shadow: 3px 3px 0 #1a0e33;
+  text-wrap: balance;
+}
+p { margin: 0; }
+a { color: var(--grass); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+/* Hero */
+.hero { display: grid; gap: 20px; }
+.banner { width: 100%; border: 4px solid #000; box-shadow: 0 0 0 4px var(--line); }
+.hero-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; }
+.tagline { max-width: 34rem; color: var(--muted); font-size: 1.05rem; min-width: 0; }
+.tagline strong { color: var(--text); font-weight: 500; }
+
+.ip {
+  display: flex; align-items: stretch;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  background: var(--panel);
+  max-width: 100%;
+}
+.ip code {
+  font: 500 1rem var(--mono);
+  padding: 12px 16px;
+  color: var(--grass);
+  user-select: all;
+  overflow-wrap: anywhere;
+}
+.ip button {
+  font: 400 .7rem var(--display);
+  border: 0; border-left: 4px solid #000;
+  background: var(--grass); color: #10240a;
+  padding: 0 16px; cursor: pointer;
+}
+.ip button:hover { background: #95e06c; }
+.ip button:active { transform: translateY(2px); }
+
+.facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: 500 .85rem var(--body);
+  padding: 4px 12px;
+  border: 2px solid var(--line);
+  background: rgba(36, 29, 85, .7);
+  color: var(--muted);
+}
+.chip b { color: var(--text); font-weight: 700; }
+
+/* Join steps: a real sequence, so it is numbered. */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: step; }
+.steps li {
+  counter-increment: step;
+  display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start;
+  padding: 16px;
+  background: var(--panel);
+  border-bottom: 6px solid var(--dirt);
+  border-top: 4px solid var(--grass);
+}
+.steps li::before {
+  content: counter(step);
+  font: 400 1.1rem/48px var(--display);
+  text-align: center;
+  background: var(--sky); color: var(--gold);
+  width: 48px; height: 48px;
+}
+.steps li > div { min-width: 0; }
+.steps h3 { margin: 0 0 4px; font: 700 1.05rem/1.4 var(--body); }
+.steps p { color: var(--muted); }
+.steps code { font: 500 .9rem var(--mono); color: var(--text); background: var(--sky); padding: 1px 6px; overflow-wrap: anywhere; }
+.btn {
+  display: inline-block; margin-top: 10px;
+  font: 400 .7rem/1 var(--display);
+  padding: 12px 14px;
+  background: var(--gold); color: #2a1a00;
+  text-decoration: none;
+  border: 3px solid #000; box-shadow: 3px 3px 0 #000;
+}
+.btn:hover { background: #ffe38a; }
+
+/* Features */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.card { padding: 18px; background: rgba(36, 29, 85, .82); border: 2px solid var(--line); min-width: 0; }
+.card h3 { margin: 0 0 6px; font: 700 1rem/1.4 var(--body); color: var(--text); display: flex; gap: 10px; align-items: center; }
+.card h3 i { width: 12px; height: 12px; flex: none; background: var(--c, var(--grass)); box-shadow: 2px 2px 0 #000; }
+.card p { color: var(--muted); font-size: .95rem; }
+.card code { font: 500 .85rem var(--mono); color: var(--text); overflow-wrap: anywhere; }
+
+/* Donate: one column per rank, the price is the first thing read. */
+.ranks { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.rank { padding: 20px; background: rgba(36, 29, 85, .82); border: 2px solid var(--line); border-top: 6px solid var(--c); min-width: 0; display: grid; gap: 10px; align-content: start; }
+.rank h3 { margin: 0; font: 400 .85rem/1.4 var(--display); color: var(--c); }
+.rank .price { font: 700 1.6rem/1 var(--body); color: var(--text); font-variant-numeric: tabular-nums; }
+.rank .price small { font-size: .9rem; font-weight: 500; color: var(--muted); }
+.rank ul { margin: 0; padding-left: 1.1em; color: var(--muted); font-size: .95rem; display: grid; gap: 4px; }
+.howto { margin: 20px 0 0; padding-left: 1.2em; display: grid; gap: 6px; color: var(--muted); max-width: 44rem; }
+.howto b, .howto code { color: var(--text); }
+.howto code { font: 500 .9rem var(--mono); background: var(--sky); padding: 1px 6px; }
+.btn.off { background: var(--panel); color: var(--muted); cursor: default; box-shadow: none; }
+.note { margin-top: 12px; color: var(--muted); font-size: .9rem; max-width: 44rem; }
+
+/* Rules */
+.rules { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 40rem; color: var(--muted); }
+.rules b { color: var(--text); }
+
+footer { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; color: var(--muted); font-size: .9rem; border-top: 2px solid var(--line); padding-top: 24px; }
+footer img { width: 48px; height: 48px; }
+.small-banner { display: grid; gap: 10px; }
+.small-banner code { font: 500 .8rem var(--mono); color: var(--muted); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .gem { animation: bob 3s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translateY(-4px); } }
+}
+/* Gallery */
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.gallery figure { margin: 0; border: 3px solid #000; box-shadow: 0 0 0 3px var(--line); background: var(--panel); }
+.gallery img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; image-rendering: auto; }
+.gallery figcaption { padding: 8px 12px; color: var(--muted); font-size: .9rem; }
+.links { display: flex; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <img class="banner" src="banner-1200x400.png" width="1200" height="400" alt="Sigma Isles: летающий остров с вишнями в ночном небе">
+    <div class="hero-row">
+      <p class="tagline"><strong>Выживание без модов на Minecraft 1.20–26.3.</strong> Заходишь с обычного клиента, появляешься на летающем острове с мини-играми, а оттуда телепортируешься в мир и строишь где хочешь. Весь сервер на русском.</p>
+      <div class="ip" role="group" aria-label="Адрес сервера">
+        <code id="addr">sigmaisles.sigma.band</code>
+        <button id="copy" type="button">Копировать</button>
+      </div>
+    </div>
+    <div class="facts">
+      <span class="chip">Версии <b>1.20–26.3</b></span>
+      <span class="chip">Моды ставить <b>не нужно</b></span>
+      <span class="chip">Можно без лицензии</span>
+      <span class="chip">Голосовой чат</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="join">
+    <h2 id="join">Как зайти</h2>
+    <ol class="steps">
+      <li><div>
+        <h3>Запусти Minecraft 1.20–26.3</h3>
+        <p>Подойдёт обычный клиент любой версии от 1.20 до 26.3, в том числе пиратский. Устанавливать Fabric и моды не нужно.</p>
+      </div></li>
+      <li><div>
+        <h3>Добавь сервер</h3>
+        <p>Открой «Сетевая игра», нажми «Добавить» и вставь адрес <code>sigmaisles.sigma.band</code>.</p>
+      </div></li>
+      <li><div>
+        <h3>Прими ресурспак</h3>
+        <p>Сервер предложит его при входе. Можно отказаться, но с ним предметы и блоки из модов выглядят как задумано.</p>
+      </div></li>
+      <li><div>
+        <h3>Войди в аккаунт на сервере</h3>
+        <p>В первый раз придумай пароль и введи <code>/register пароль пароль</code>, а в следующие разы <code>/login пароль</code>. Потом набери <code>/help</code>, чтобы посмотреть все команды.</p>
+      </div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="feat">
+    <h2 id="feat">Что тут есть</h2>
+    <div class="grid">
+      <article class="card" style="--c: var(--blossom)"><h3><i></i>Остров-спавн</h3><p>Летающий остров с вишнями. Прыгни в яму в центре острова или набери <code>/rtp</code>, и попадёшь в случайное место мира от 10 000 блоков. С донат-рангом дальше.</p></article>
+      <article class="card" style="--c: var(--grass)"><h3><i></i>Город и мини-игры</h3><p>Под островом город с колизеем, сплифом, паркуром, лабиринтом и стрельбищем. В хабе нет урона от падения, так что с острова можно просто спрыгнуть.</p></article>
+      <article class="card" style="--c: #e0784a"><h3><i></i>Шахта, дрифт и метеоры</h3><p>Автошахта с продавцом, ледяная трасса дрифта на лодках и 8 арен метеоритного дождя. В колизее проходят PvP-турниры.</p></article>
+      <article class="card" style="--c: var(--gold)"><h3><i></i>Экономика</h3><p>Магазин <code>/shop</code>, аукцион <code>/ah</code> и переводы <code>/pay</code>. Стартовые $15 000 и ежедневная награда.</p></article>
+      <article class="card" style="--c: #9a7cff"><h3><i></i>Награды за игру</h3><p>Профессии <code>/jobs</code>, серия входов <code>/streak</code>, сезонный пропуск <code>/pass</code> и звания за время в игре.</p></article>
+      <article class="card" style="--c: #6ebeff"><h3><i></i>Приваты</h3><p>Купи блок в <code>/privateshop</code>, поставь его, и участок будет защищён от неба до бедрока. Друзей можно добавить через <code>/private trust</code>.</p></article>
+      <article class="card" style="--c: #8fd0a0"><h3><i></i>Живой мир</h3><p>Ландшафт Terralith, мобы из Friends &amp; Foes, новые культуры и готовка из Farmer's Delight.</p></article>
+      <article class="card" style="--c: var(--blossom)"><h3><i></i>Удобства</h3><p>Вейстоуны для телепорта между базами, рюкзаки, переноска сундуков и животных, поиск биомов и структур через <code>/compass</code>.</p></article>
+      <article class="card" style="--c: #c6e070"><h3><i></i>Голосовой чат</h3><p>Слышишь тех, кто рядом, и можешь собрать группу с друзьями. Это единственный мод по желанию: для него нужен клиент с Fabric и <a href="https://modrinth.com/plugin/simple-voice-chat" target="_blank" rel="noopener">Simple Voice Chat</a>.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="gal">
+    <h2 id="gal">Как это выглядит</h2>
+    <div class="gallery">
+      <figure><img src="img/maze.jpg" width="1280" height="720" loading="lazy" alt="Город сакуры с лабиринтом и паркур-башней"><figcaption>Город сакуры: лабиринт, паркур и стрельбище</figcaption></figure>
+      <figure><img src="img/spleef.jpg" width="1280" height="720" loading="lazy" alt="Светящаяся сплиф-арена ночью"><figcaption>Сплиф-арена ночью</figcaption></figure>
+      <figure><img src="img/meteor.jpg" width="1280" height="720" loading="lazy" alt="Арена метеоритного дождя в небе"><figcaption>Арена метеоритного дождя</figcaption></figure>
+      <figure><img src="img/colosseum.jpg" width="1280" height="720" loading="lazy" alt="Колизей для PvP-турниров ночью"><figcaption>Колизей для PvP-турниров</figcaption></figure>
+      <figure><img src="img/drift.jpg" width="1280" height="720" loading="lazy" alt="Ледяная трасса дрифта на лодках"><figcaption>Трасса дрифта на лодках</figcaption></figure>
+      <figure><img src="img/world.jpg" width="1280" height="720" loading="lazy" alt="Мир выживания с генерацией Terralith"><figcaption>Мир выживания с Terralith</figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="donate-h" id="donate">
+    <h2 id="donate-h">Донат</h2>
+    <div class="ranks">
+      <article class="rank" style="--c: var(--grass)">
+        <h3>[VIP]</h3>
+        <p class="price">160 грн <small>/ 30 дней</small></p>
+        <ul>
+          <li>Префикс [VIP] в чате и в Tab</li>
+          <li>Цветной чат и донат-чат <code>/dc</code></li>
+          <li>5 домов вместо 3</li>
+          <li><code>/workbench</code>, <code>/near</code></li>
+          <li><code>/rtp</code> до 15 000 блоков</li>
+          <li>Своё сообщение при входе</li>
+        </ul>
+      </article>
+      <article class="rank" style="--c: #6ebeff">
+        <h3>[Premium]</h3>
+        <p class="price">290 грн <small>/ 30 дней</small></p>
+        <ul>
+          <li>Всё от VIP</li>
+          <li>10 домов, градиенты в чате</li>
+          <li><code>/enderchest</code>, <code>/stonecutter</code>, <code>/grindstone</code></li>
+          <li>Свой ник <code>/nick</code>, <code>/top</code></li>
+          <li><code>/rtp</code> до 20 000 блоков</li>
+        </ul>
+      </article>
+      <article class="rank" style="--c: var(--gold)">
+        <h3>[Legend]</h3>
+        <p class="price">820 грн <small>/ 30 дней</small></p>
+        <ul>
+          <li>Всё от Premium</li>
+          <li>20 домов, радужный и золотой чат</li>
+          <li><code>/wastebin</code>, <code>/rtp</code> до 30 000 блоков без отката</li>
+          <li>Вход объявляется на весь сервер</li>
+        </ul>
+      </article>
+    </div>
+    <ol class="howto">
+      <li>Переведи сумму привилегии в банку monobank, картой Visa, Mastercard, Apple Pay или Google Pay.</li>
+      <li>В комментарии к переводу напиши <b>свой ник и привилегию</b>, например <code>Steve VIP</code>.</li>
+      <li>Админ выдаст привилегию, обычно в течение дня, и тебе придёт сообщение в игре.</li>
+    </ol>
+    <a class="btn" id="pay" href="https://send.monobank.ua/jar/4ozj5WebPV" target="_blank" rel="noopener">Оплатить в банку monobank</a>
+    <p class="note">Привилегии дают косметику и удобства, но не игровое преимущество. Вопросы по оплате пиши админу Platosha в игре. В игре то же самое показывает команда <code>/donate</code>.</p>
+  </section>
+
+  <section aria-labelledby="rules-h">
+    <h2 id="rules-h">Правила</h2>
+    <ol class="rules">
+      <li><b>Не ломай и не воруй чужое.</b> Чужие постройки и сундуки не трогаем.</li>
+      <li><b>Без читов и иксрея.</b> Клиентские моды и ресурспаки, которые дают преимущество, нельзя.</li>
+      <li><b>Уважай других.</b> Без травли и спама в чате и голосе.</li>
+      <li><b>Нашёл баг — скажи админу.</b> Не пользуйся им втихую.</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="comm">
+    <h2 id="comm">Сообщество</h2>
+    <p class="note" style="margin:0 0 14px">В Discord — новости, промокоды и ивенты. За привязку аккаунта командой <code>/link</code> в игре дают $25 000.</p>
+    <div class="links">
+      <a class="btn" href="https://discord.gg/Yv7mAzwuQc" target="_blank" rel="noopener">Discord</a>
+      <a class="btn" href="https://www.youtube.com/@SigmaIsles" target="_blank" rel="noopener">YouTube</a>
+      <a class="btn" href="https://hotmc.ru/minecraft-server-294597" target="_blank" rel="noopener">Голосовать на HotMC</a>
+    </div>
+  </section>
+
+  <footer>
+    <img class="gem" src="icon.png" width="64" height="64" alt="">
+    <div>
+      <p><b style="color: var(--text)">Sigma Isles</b> · sigmaisles.sigma.band · Minecraft 1.20–26.3</p>
+      <p>Хочешь добавить сервер к себе? Ниже баннер 468×60 для мониторингов.</p>
+    </div>
+    <div class="small-banner">
+      <img src="banner-468x60.png" width="468" height="60" alt="Баннер Sigma Isles 468 на 60">
+    </div>
+  </footer>
+</div>
+
+<script>
+const btn = document.getElementById('copy');
+const addr = document.getElementById('addr');
+btn.addEventListener('click', () => {
+  const done = () => { btn.textContent = 'Скопировано'; setTimeout(() => { btn.textContent = 'Копировать'; }, 1800); };
+  const select = () => {
+    const r = document.createRange(); r.selectNodeContents(addr);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    btn.textContent = 'Нажми Ctrl+C';
+  };
+  try {
+    navigator.clipboard.writeText(addr.textContent).then(done, select);
+  } catch (e) { select(); }
+});
+</script>
+</body>
+</html>
